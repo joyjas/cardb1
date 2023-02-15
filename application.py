@@ -22,12 +22,12 @@ def connect_to_database():
 def index():
     conn = connect_to_database()
     cur = conn.cursor()
-    # cur.execute("SELECT name, email, carbrand FROM carins.carowns")
-    # rows = cur.fetchall()
+    cur.execute("SELECT name, email, carbrand FROM carins.carowns")
+    rows = cur.fetchall()
     cur.close()
     conn.close()
-    # return render_template('index.html', rows=rows)
-    return render_template('index.html')
+    return render_template('index.html', rows=rows)
+    # return render_template('index.html')
 
 if __name__ == "__main__":
     app.run()
