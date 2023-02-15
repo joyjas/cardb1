@@ -20,6 +20,8 @@ def connect_to_database():
 
 @app.route("/")
 def index():
+    conn = connect_to_database()
+    conn.close()
     return render_template('index.html')
 
 if __name__ == "__main__":
