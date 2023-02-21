@@ -1,33 +1,30 @@
-from flask import Flask, render_template
-import psycopg2
+from flask import Flask, request, render_template
+import boto3
+
 
 application = Flask(__name__)
 
 app = application
+s3 = boto3.client('s3')
+bucket_name = 'vehicle-logs-uploader'
 
-# Set up the PostgreSQL database connection
-def connect_to_database():
-    conn = psycopg2.connect(
-        user='jasonadmin',
-        password='qwerty123',
-        host='cardb-1.cbbge8pluyf7.eu-central-1.rds.amazonaws.com',
-        port='5432',
-        database='cardb'
-    )
-    return conn
-
-
-
-@app.route("/")
+# Define a route to display the table in three columns
+@app.route('/')
 def index():
-    conn = connect_to_database()
-    cur = conn.cursor()
-    cur.execute("SELECT name, email, carbrand FROM carins.carowns")
-    rows = cur.fetchall()
-    cur.close()
-    conn.close()
-    return render_template('index.html', rows=rows)
-    # return render_template('index.html')
+    return render_template('index.html')
+
+
+@app.route('/', methods=['POST'])
+def upload():
+    try:
+        file = request.files['file']
+        s3.upload_fileobj(file, bucket_name, file.filename)
+        return 'File uploaded successfully!'
+    except Exception as e:
+        print(e)
+        return 'File upload failed'
+
+
 
 if __name__ == "__main__":
     app.run()
