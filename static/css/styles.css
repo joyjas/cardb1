@@ -23,11 +23,11 @@ body {
 	justify-content: center;
 	align-items: center;
 	flex: 1;
-	background-color: #F1F1F1;
-	background-image: url('img/logo1.png');
+	background-color: #ffffff;
+	background-image: url('img/logo2.png');
 	background-repeat: no-repeat;
 	background-position: center center;
-	background-size: 150px;
+	background-size: 600px;
 	color: white;
 	text-align: center;
 }
