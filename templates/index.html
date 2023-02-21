@@ -9,7 +9,9 @@
 		<h1>Logs Uploader</h1>
 	</div>
 	<div id="container">
-		<div id="left"></div>
+		<div id="left">
+			<img src="{{ url_for('static', filename='css/img/logo2.png') }}" alt="Logo">
+		</div>
 		<div id="right">
 			<form method="POST" enctype="multipart/form-data">
 			    <input type="file" name="file" style="margin-bottom: 10px;">

@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect, url_for
 import boto3
 
 
@@ -19,11 +19,14 @@ def upload():
     try:
         file = request.files['file']
         s3.upload_fileobj(file, bucket_name, file.filename)
-        return 'File uploaded successfully!'
+        return redirect(url_for('success'))
     except Exception as e:
         print(e)
         return 'File upload failed'
-
+    
+@app.route('/success')
+def success():
+    return render_template('success.html')
 
 if __name__ == "__main__":
     app.run()
